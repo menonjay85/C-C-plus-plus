@@ -1,0 +1,86 @@
+Practical No. 9
+
+>>>Multiple Inheritance
+
+Program Code
+
+/* To calculate Sum Of Series x + x^3/3! - x^5/5! + x^7/7! ... */
+
+#include<iostream.h>
+#include<conio.h>
+
+class A1						// Base class 1
+{
+	public : 
+		int power(int x,int y) 			// to calculate the power of x
+		{
+			int p=1;
+			for(int i=1;i<=y;i++)
+			{
+				p=p*x;
+			}
+			return p;
+		}
+};
+
+class A2						// Base class 2
+{
+	public : 
+		int factorial(int x)		    // to find the factorialfor denominator of x
+		{
+			int fact=1,i;
+			for(i=1;i<=x;i++)
+			{
+				fact=fact*i;
+			}
+			return fact;
+		}
+};
+
+class A3 : public A1,public A2				// derived class inherits from both the base classes
+{							
+	public : 
+		float series(int x,int n)		
+		{
+			float ans=0; int y=3; ans=x;		// Default values
+
+			for(int i=1;i<=n-1;i++)
+			{
+				if(i%2==0)
+				{
+					ans=ans-1.0*power(x,y)/factorial(y);	
+// if even position..(-) sign
+				}
+				else
+				{
+					ans=ans+1.0*power(x,y)/factorial(y);	
+// if odd position..(+) sign
+				}
+				y=y+2;			// increments in odd numbers
+			}
+			return ans;
+		}
+};
+
+void main()
+{
+	int x,n;
+	clrscr();
+	cout<<"Enter the values of X  :  ";
+	cin>>x;
+	cout<<"\nFor how many elements  :  ";
+	cin>>n;
+	A3 obj;
+	float k = obj.series(x,n);		// Calls series function of class A3
+	cout<<"\nSeries sum = "<<k;
+	getch();
+}
+
+
+Output
+Enter the values of X  :  2
+
+For how many elements  :  3
+
+Series sum = 3.066667
+ 
